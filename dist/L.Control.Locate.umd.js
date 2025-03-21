@@ -165,6 +165,10 @@
       keepCurrentZoomLevel: false,
       /** After activating the plugin by clicking on the icon, zoom to the selected zoom level, even when keepCurrentZoomLevel is true. Set to 'false' to disable this feature. */
       initialZoomLevel: false,
+      transformLocation(e){
+        return e
+      },
+
       /**
        * This callback can be used to override the viewport tracking
        * This function should return a LatLngBounds object.
@@ -746,6 +750,8 @@
      * Stores the received event and updates the marker.
      */
     _onLocationFound(e) {
+      // transform location
+      e = this.options.transformLocation(e); 
       // no need to do anything if the location has not changed
       if (this._event && this._event.latlng.lat === e.latlng.lat && this._event.latlng.lng === e.latlng.lng && this._event.accuracy === e.accuracy) {
         return;
